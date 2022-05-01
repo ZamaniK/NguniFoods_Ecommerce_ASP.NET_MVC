@@ -1,0 +1,45 @@
+﻿@model NguniDemo.Models.Order
+
+@{
+    ViewBag.Title = "Address And Payment";
+}
+<section class="main-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>@ViewBag.Title.</h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 main-form">
+                @using (Html.BeginForm())
+                {
+                    <h2>Address And Payment</h2>
+                    <fieldset>
+                        <legend>Shipping Information</legend>
+                        @Html.EditorForModel()
+                    </fieldset>
+                    <fieldset>
+                        <legend>Payment</legend>
+                        <p>
+                            We're running a promotion: all first 100 deliveries are free
+                            with the promo code: "FREE"
+                        </p>
+                        <div class="editor-label">
+                            @Html.Label("Promo Code")
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBox("PromoCode")
+                        </div>
+                    </fieldset>
+                    <input type="submit" value="Submit Order" />
+                }
+            </div>
+        </div>
+    </div>
+</section>

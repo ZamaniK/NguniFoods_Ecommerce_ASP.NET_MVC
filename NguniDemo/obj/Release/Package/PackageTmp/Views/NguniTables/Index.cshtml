@@ -1,0 +1,91 @@
+﻿@model NguniDemo.ViewModels.TablesDetailsViewModel
+
+@if (Model != null && Model.Tables != null)
+{
+    @*@{*@
+    var thumbnailPicture = Model.Tables.TablePictures != null && Model.Tables.TablePictures.Count > 0 ? Model.Tables.TablePictures.First() : new NguniDemo.Models.TablePictures();
+    var thumbnailURL = thumbnailPicture.Picture != null ? thumbnailPicture.Picture.URL : "default-image.jpg";
+    @*}*@
+
+
+    <aside id="colorlib-hero">
+        <div class="flexslider">
+            <ul class="slides">
+                <li style="background-image: url(/images/site/@thumbnailURL);">
+                    <div class="overlay"></div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 col-md-offset-3 slider-text">
+                                <div class="slider-text-inner slider-text-inner2 text-center">
+                                    <h2>
+                                        Type @Model.Tables.TableTypes.Name
+                                    </h2>
+                                    <h1>
+                                        @Model.Tables.TableName
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <div id="colorlib-amenities">
+        <div class="container">
+            <div class="row">
+                <div class="amenities-flex">
+                    <div class="desc animate-box">
+
+                        <strong>
+                            @Model.Tables.TableCapacity .
+                        </strong>
+                        <p>
+                            @Model.Tables.TableDescription
+                        </p>
+                        <p><a href="@Url.Action("PackageBooking","NguniTables", new { id=Model.Tables.TableId })" rel="tooltip" title="View" class="btn btn-info btn-simple btn-xs"><i class="fa fa-address-book"></i></a></p>
+
+
+
+                        <div class="col-md-10 col-md-offset-1 animate-box">
+
+
+                        </div>
+                    </div>
+
+                    @if (Model.Tables.TablePictures != null && Model.Tables.TablePictures.Count > 0)
+                    {
+                        foreach (var accomodationPackagePicture in Model.Tables.TablePictures)
+                        {
+                            var imagelURL = accomodationPackagePicture.Picture != null ? accomodationPackagePicture.Picture.URL : "default-image.jpg";
+                            <div class="amenities-img animate-box fadeInUp animated-fast" style="height:400px; background-image: url(/images/site/@thumbnailURL)">
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script>
+    $('#FromDate').datepicker({
+        format: 'mm/dd/yyyy',
+        startDate: '+1d'
+    });
+
+    $('#btnCheckAvailability').click(function () {
+        $.ajax({
+            url: '@Url.Action("CheckAvailability", "Accomodations")',
+            data: $("#frmConfirmBooking").serialize()
+        })
+            .done(function (response) {
+                $("#actionModal .modal-dialog").html(response);
+            });
+    });
+</script>
+
+
+
+

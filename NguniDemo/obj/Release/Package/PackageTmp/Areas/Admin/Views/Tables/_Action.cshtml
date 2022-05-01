@@ -1,0 +1,154 @@
+﻿@model NguniDemo.ViewModels.TableActionModel
+
+
+@if (Model != null)
+{
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">
+                @if (Model.ID > 0)
+                {
+                    <span>Edit Table</span>
+                }
+                else
+                {
+                    <span>Create Table</span>
+                }
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="actionForm">
+                <input type="hidden" name="ID" value="@Model.ID" />
+                <div class="form-group">
+                    <label>Table Type</label>
+                    <select class="form-control" name="TabletypeID">
+                        @if (Model.TableTypes != null)
+                        {
+                            foreach (var grades in Model.TableTypes)
+                            {
+                                <option value="@grades.TabletypeId" @(grades.TabletypeId == Model.TableTypeID ? "selected" : string.Empty)>
+                                    @grades.Name
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Table Name</label>
+                    <input class="form-control" name="Name" placeholder="Enter Table Name" value="@Model.Name">
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <input class="form-control" name="Description" placeholder="Enter Subject Description" value="@Model.Description">
+                </div>
+                <div class="form-group">
+                    <label>No. Of Seats</label>
+                    <input class="form-control" name="NoOfSeats" placeholder="Enter Number of Seats" value="@Model.NoOfSeats">
+                </div>
+
+                <div class="form-group">
+                    <label>Pictures</label>
+                    <input id="selectPictures" class="form-control" name="Picture" type="file" multiple />
+                    <input type="hidden" name="pictureIDs" id="pictureIDs" value="" />
+                </div>
+                <div id="picturesArea">
+                    @if (Model.TablePictures != null && Model.TablePictures.Count > 0)
+                    {
+                        foreach (var activityPictures in Model.TablePictures)
+                        {
+                            <img src="/images/site/@activityPictures.Picture.URL" class="img-fluid" style="width:200px" onclick="removeMe(this)" data-id="@activityPictures.PictureID" />
+                        }
+                    }
+                </div>
+            </form>
+
+            <div class="errorDiv">
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="actionButton" type="button" class="btn btn-primary"><i class="fas fa-save mr-1"></i>Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1"></i>Close</button>
+        </div>
+    </div>
+}
+<div id="imageTemplate">
+    <img src="" class="img-fluid" style="width:200px" onclick="removeMe(this)" />
+</div>
+
+
+<script>
+
+    $("#actionButton").click(function () {
+
+    var pictureIDs = [];
+    $("#picturesArea img").each(function ()
+    {
+        var picID = $(this).attr("data-id");
+
+        pictureIDs.push(picID);
+    });
+
+    $("#pictureIDs").val(pictureIDs.join());
+
+        $.ajax({
+            url: '@Url.Action("Action", "Tables")',
+            type: "post",
+            data: $("#actionForm").serialize()
+        })
+            .done(function (response) {
+                if (response.Success) {
+                    //data is saved... reload listing
+                    location.reload();
+                }
+                else {
+                    $(".errorDiv").html(response.Message);
+                }
+            });
+    });
+
+
+
+
+    $("#selectPictures").change(function () {
+
+        var pictures = this.files;
+        var formData = new FormData();
+
+        for (var i = 0; i < pictures.length; i++) {
+            formData.append("Picture", pictures[i]);
+        }
+        $.ajax({
+            url: '@Url.Action("UploadPictures", "AdminDashboard")',
+            type: "post",
+            data: formData,
+            processData: false,
+            contentType: false
+        })
+        .done(function (response) {
+
+            for (var i = 0; i < response.length; i++)
+            {
+                var picture = response[i];
+                var $imgHTML = $("#imageTemplate").clone();
+                $imgHTML.find("img").attr("src", "/images/site/" + picture.URL);
+                $imgHTML.find("img").attr("data-id", picture.ID);
+
+                $("#picturesArea").append($imgHTML.html());
+            }
+            });
+    });
+
+    function removeMe(element) {
+        element.remove();
+    }
+
+</script>
+
+
+
+

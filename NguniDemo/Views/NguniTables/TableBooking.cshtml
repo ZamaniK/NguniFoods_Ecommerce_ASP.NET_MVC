@@ -1,0 +1,67 @@
+﻿@model IEnumerable<NguniDemo.Models.Table>
+@{
+    ViewBag.Title = "TableReservation";
+}
+
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 100% !important;
+        margin: auto;
+        text-align: center;
+        /*            height: 250px !important;*/
+        margin-bottom: 20px !important;
+        border: groove !important;
+    }
+
+        .card:hover {
+            border-radius: 10px;
+            border-color: aqua !important;
+        }
+</style>
+@if (Model.Count() == 0)
+{
+    <h2 style="text-align:center; padding-bottom:20px !important">No Available GroupEvent Packages</h2>
+}
+else
+{
+    <h2 style="text-align:center; padding-bottom:20px !important">Available Tables</h2>
+
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-8">
+                    <div class="card">
+
+
+                        <div class="card-body" align="center">
+                            <h4 class="card-title"> <strong> @Html.DisplayFor(x => item.TableTypes.Name)</strong> </h4>
+                            <p class="card-text">Table Capacity :@Html.DisplayFor(modelItem => item.TableCapacity) <i class="fa fa-user" aria-hidden="true"></i></p>
+                            <p class="card-text">Table Description :@Html.DisplayFor(modelItem => item.TableDescription)</p>
+                            <br />
+                            <p>
+                                @if (item.TableTypes.TableAvailable > 0 && item.TableTypes.TableAvailable <= 5)
+                                {
+                                <p class="card-text alert-danger">Hurry!! @Html.DisplayFor(modelItem => item.TableTypes.TableAvailable) Tables available</p>
+                                <a class="btn btn-default" onclick="location.href='@Url.Action("Create", "TableReservation", new { id = item.TableId })'">Make Booking &raquo;</a>
+
+                                }
+                                else if (item.TableTypes.TableAvailable > 5)
+                                {
+                                <p class="card-text alert-success">@Html.DisplayFor(modelItem => item.TableTypes.TableAvailable) Tables available</p>
+                                <a class="btn btn-default" onclick="location.href='@Url.Action("Create", "TableReservation", new { id = item.TableId })'">Make Booking &raquo;</a>
+
+                                }
+                                else
+                                {
+                                <p class="card-text alert-danger">@Html.DisplayFor(modelItem => item.TableTypes.TableAvailable) Tables available</p>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+            }
+        </div>
+    </div>
+}

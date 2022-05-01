@@ -1,0 +1,83 @@
+﻿@model IEnumerable<NguniDemo.Models.VenueBooking>
+<div class="container">
+    @{
+        ViewBag.Title = "Index";
+        var message = TempData["AlertMessage"] ?? string.Empty;
+    }
+    <script>
+    var msg = '@message';
+    if (msg)
+        alert(msg);
+    </script>
+
+    <h2>My Venue Bookings</h2>
+
+
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ArrivalDate)
+            </th>
+            <th>
+                Arrival Time
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.numOfPeople)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.BasicPrice)
+            </th>
+
+
+            <th>
+                Your Email
+            </th>
+
+            <th>
+                Venue Name
+            </th>
+            <th>
+                Venue Type
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArrivalDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeSlot)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.numOfPeople)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.BasicPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.VenueName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VenueType)
+                </td>
+
+                @*<td>
+                        <a href="@Url.Action("Details","PackageBooking", new { id=item.PackageBookingId })" rel="tooltip" title="View" class="btn btn-info btn-simple btn-xs"><i class="fa fa-eye"></i></a>
+                        <a href="@Url.Action("Edit","PackageBooking", new { id=item.PackageBookingId })" rel="tooltip" title="Edit" class="btn btn-success btn-simple btn-xs"><i class="fa fa-edit"></i></a>
+                        <a href="@Url.Action("Delete", "PackageBooking", new { id = item.PackageBookingId })" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs"><i class="fa fa-trash"></i></a>
+                    </td>*@
+            </tr>
+        }
+
+    </table>
+</div>

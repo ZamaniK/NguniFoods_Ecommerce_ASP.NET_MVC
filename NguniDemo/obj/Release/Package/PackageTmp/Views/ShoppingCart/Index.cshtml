@@ -1,0 +1,79 @@
+﻿@model NguniDemo.ViewModels.ShoppingCartViewModel
+
+@{
+    ViewBag.Title = "Shopping Cart";
+}
+
+<script type="text/javascript">
+</script>
+<section class="main-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>@ViewBag.Title.</h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>
+                    <em>Review</em> your cart:
+                </h3>
+                <p class="button text-right">
+                    @Html.ActionLink("Checkout >> ", "AddressAndPayment", "Checkout")
+                </p>
+                <div id="update-message">
+                </div>
+                <table class="table table-condensed">
+                    <tr class="table-header">
+                        <th>
+                            Item Name
+                        </th>
+                        <th>
+                            Price (each)
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th></th>
+                    </tr>
+                    @foreach (var item in Model.CartItems)
+                    {
+                        <tr id="row-@item.RecordId">
+                            <td>
+                                @Html.ActionLink(item.FoodItem.FoodItemName, "Details", "Store", new { id = item.FoodItemID }, null)
+                            </td>
+                            <td>
+                                @item.FoodItem.Price
+                            </td>
+                            <td id="item-count-@item.RecordId">
+                                @item.Count
+                            </td>
+                            <td>
+                                <a href="#" class="RemoveLink"
+                                   data-id="@item.RecordId">
+                                    Remove
+                                    from cart
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                    <tr class="table-footer">
+                        <td>
+                            Total
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td id="cart-total">
+                            @Model.CartTotal
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

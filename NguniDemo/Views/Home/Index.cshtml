@@ -1,0 +1,98 @@
+﻿@using NguniDemo.Models;
+@model IEnumerable<Food>
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<aside id="colorlib-hero">
+    <div class="flexslider">
+        <ul class="slides">
+            <li style="background-image: url(/Content/images/newLogo.jpg);">
+                <div class="overlay"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-md-offset-3 slider-text">
+                            <div class="slider-text-inner text-center">
+                                <h2>Welcome to Nguni Traditional Foods</h2>
+                                <h1>A Tasteful Joy</h1>
+                                @*<p><a class="btn btn-primary btn-demo" href="#"></i> View Detail</a> <a class="btn btn-primary btn-learn">Know More</a></p>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li style="background-image: url(/Content/images/refreshment3.jpg);">
+                <div class="overlay"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-md-offset-3 slider-text">
+                            <div class="slider-text-inner text-center">
+                                <h2>Cultural Meals</h2>
+                                <h1>Go back to your Roots</h1>
+                                @*<p><a class="btn btn-primary btn-demo" href="#"></i> View Detail</a> <a class="btn btn-primary btn-learn">Know More</a></p>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li style="background-image: url(/Content/images/wors.jpg);">
+                <div class="overlay"></div>
+                <div class="container-fluids">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-md-offset-3 slider-text">
+                            <div class="slider-text-inner text-center">
+                                <h2>You are invited For a Happy Meal</h2>
+                                <h1>We know how to please you</h1>
+                                @*<p><a class="btn btn-primary btn-demo" href="#"></i> View Detail</a> <a class="btn btn-primary btn-learn">Know More</a></p>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li style="background-image: url(/Content/images/nguni.jpg);">
+                <div class="overlay"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-md-offset-3 slider-text">
+                            <div class="slider-text-inner text-center">
+                                <h2>Be Satisfied</h2>
+                                <h1>In the heart by Nguni Traditional Food.</h1>
+                                @*<p><a class="btn btn-primary btn-demo" href="#"></i> View Detail</a> <a class="btn btn-primary btn-learn">Know More</a></p>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</aside>
+
+
+    <div id="colorlib-services">
+        <div class="container">
+            <div class="row">
+                @foreach (Food items in Model)
+                {
+                    <div class="col-md-4 animate-box text-center"  @items.FoodType>
+                        <div class="services">
+                            <span class="icon">
+                                <i class="fas fa-store"></i>
+                            </span>
+                            <h3>
+                                @Html.ActionLink(items.FoodType, "Browse", new { type = items.FoodType })
+                            </h3>
+                        </div>
+                    </div>
+                }
+                    
+                </div>
+        </div>
+    </div>
+
+    <style>
+        .owl-carousel .own-item img {
+            -webkit-backface-visibility: hidden;
+        }
+    </style>

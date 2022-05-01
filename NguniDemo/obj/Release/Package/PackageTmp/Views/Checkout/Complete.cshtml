@@ -1,0 +1,28 @@
+﻿@model int
+@{
+    ViewBag.Title = "Complete";
+}
+<section class="main-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>@ViewBag.Title.</h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Checkout Complete</h2>
+                <p>Thanks for your order! Your order number is: @Model</p>
+                <p>
+                    How about shopping for some more music in our
+                    @Html.ActionLink("store", "Index", "Home")
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

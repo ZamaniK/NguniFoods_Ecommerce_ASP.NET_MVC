@@ -1,0 +1,92 @@
+﻿@model IEnumerable<NguniDemo.ViewModels.CartVM>
+
+    <div class="container">
+        @{
+            ViewBag.Title = "Your Order";
+        }
+
+        <h2>Manage Your Order <i class="fas fa-shopping-cart"></i></h2>
+
+        @if (ViewBag.Message != null)
+        {
+            <h3>@ViewBag.Message</h3>
+        }
+        else
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Quantity
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Image
+                    </th>
+
+                    <th>
+                        Total
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </td>
+                        <td class="qty@(item.ProductId)">
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            R @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            <img src="@Html.DisplayFor(modelItem => item.Image)"  class="img-thumbnail" width="100" height="120">
+                        </td>
+
+                        <td class="total@(item.ProductId)">
+                            R @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+                    </tr>
+                }
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="grandtotal"><b>Grand total</b> R<span>@ViewBag.GrandTotal</span></td>
+                </tr>
+
+            </table>
+
+
+            <br />
+
+
+            using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Place Order" class="btn btn-primary" />
+                        @Html.ActionLink("Cancel Order", "CancelOrder", "Cart", new { @class = "btn btn-danger" })
+
+                    </div>
+                </div>
+
+            }
+
+        }
+    </div>
+  

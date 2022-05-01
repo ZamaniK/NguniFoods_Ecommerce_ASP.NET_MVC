@@ -1,0 +1,75 @@
+﻿@model IEnumerable<NguniDemo.Models.FoodItem>
+
+@{
+
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="main-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>@ViewBag.Title.</h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="@Url.Action("Create")" class="btn btn-success" title="Add new Appetizer"> <i class="fa fa-plus"></i> Add new Item</a>
+            </div>
+            <div class="col-md-12">
+
+                <table class="table table-condensed">
+                    <tr>
+                        <th>
+                        </th>
+                        <th class="col-md-2">
+                            @Html.DisplayNameFor(model => model.FoodItemName)
+                        </th>
+                        <th class="col-md-2">
+                            @Html.DisplayNameFor(model => model.FoodType)
+                        </th>
+                        <th class="col-md-2">
+                            @Html.DisplayNameFor(model => model.ShortDesc)
+                        </th>
+                        <th class="col-md-2">
+                            @Html.DisplayNameFor(model => model.Price)
+                        </th>
+                        <th></th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" class="img-thumbnail" width="100" height="120" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FoodItemName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FoodType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ShortDesc)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Details", new { id=item.FoodItemID })" class="btn btn-primary" title="Details"> <i class="fa fa-info"></i> More info</a>
+                                <a href="@Url.Action("Edit", new { id=item.FoodItemID })" class="btn btn-default" title="Edit"> <i class="fa fa-pencil"></i> Edit</a>
+                                <a href="@Url.Action("Delete", new { id=item.FoodItemID })" class="btn btn-danger" title="Delete"> <i class="fa fa-trash"></i> Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,73 @@
+﻿@model NguniDemo.Models.FoodItem
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="main-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>@ViewBag.Title.</h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h4>Food Item</h4>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Food.FoodType)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Food.FoodType)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FoodItemName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FoodItemName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.LongDesc)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.LongDesc)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Price)
+                    </dd>
+                    <dd>
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-md-4 col-md-offset-1">
+                <img src="@Html.DisplayFor(model => model.ImageUrl)" class="img-responsive">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
+                    {
+                        @Html.ActionLink("Back to List", "Index")
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Back to List", "Index", new { type = Model.FoodType })
+                    }
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+

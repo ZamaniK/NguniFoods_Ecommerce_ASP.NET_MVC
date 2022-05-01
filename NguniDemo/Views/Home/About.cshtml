@@ -1,0 +1,49 @@
+﻿@using NguniDemo.Models;
+@model IEnumerable<Food>
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 banner-text">
+                <h1>Welcome to Nguni traditional Foods</h1>
+                <p>Nguni's Traditional Restaurant is a personal, neighborhood style restaurant situated in Durban KwaZulu Natal, This city is regarded as one of the Most Diverse Communities in the Southern Hemisphere. With a majority of Nguni people Nguni Foods Strives for Success inspired by Amajongo Developers.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="home-choice">
+    <div class="container">
+        <div class="row bg-white no-gutter shadow">
+            @foreach (Food items in Model)
+            {
+                <div class="col-md-3">
+                    <div class="home-thumb @items.FoodType-bg">
+                        <h4>@Html.ActionLink(items.FoodType, "Browse", new { type = items.FoodType })</h4>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+
+<section class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Nguni Traditional Restuarant</h2>
+                <p>The menu includes a wide range of items to suit all tastes. We truly believe in the quality of each dish. From preparing all of our sauces, dressings and dips in house, to preparing each dish individually as it is ordered, the result are absolutely delicious homemade dishes. We invite everyone to savour gourmet cuisine that features local products and heritage. Come, experience our hospitality, enjoy the sounds of Zulu music and the talent of our local artists!.</p>
+                <p>The 25 seat restaurant serves dinner Monday to Sunday.</p>
+            </div>
+            <div class="col-md-4">
+                <img src="~/Assets/Images/beverages.jpg" class="img-circle img-responsive" />
+            </div>
+        </div>
+    </div>
+</section>

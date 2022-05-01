@@ -1,0 +1,108 @@
+﻿@model NguniDemo.Models.FoodItem
+
+@{
+    ViewBag.Title = "More Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="main-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>@ViewBag.Title.</h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h4>Food Item</h4>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Food.FoodType)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Food.FoodType)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FoodItemName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FoodItemName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.LongDesc)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.LongDesc)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Price)
+                    </dd>
+                    <dd>
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-md-4 col-md-offset-1">
+                <img src="@Html.DisplayFor(model => model.ImageUrl)" class="img-responsive">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @*<p>
+                        <a href="@Url.Action("AddToCart","ShoppingCart", new { id= Model.FoodItemID },null)" class="btn btn-default" title="Details"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
+                    </p>*@
+                @if (Request.IsAuthenticated)
+                {
+                    <div class="addtocart">
+                       <i class="fas fa-shopping-cart"></i> <a href="#" class="addtocart">Add to cart</a>
+                        <span class="loader">
+                            <img src="~/Content/images/ajax-loader.gif" />
+                        </span>
+                    </div>
+                }
+
+             
+            </div>
+        </div>
+
+    </div>
+</section>
+@section Scripts {
+
+    <script>
+      
+
+            /*
+            * Add to cart
+            */
+
+            $("a.addtocart").click(function (e) {
+                e.preventDefault();
+
+                $("span.loader").addClass("ib");
+
+                var url = "/cart/AddToCartPartial";
+
+                $.get(url, { id: @Model.FoodItemID }, function (data) {
+                    $(".ajaxcart").html(data);
+                }).done(function () {
+                    $("span.loader").removeClass("ib");
+                    $("span.ajaxmsg").addClass("ib");
+                    setTimeout(function () {
+                        $("span.ajaxmsg").fadeOut("fast");
+                        $("span.ajaxmsg").removeClass("ib");
+                    }, 1000);
+                });
+            });
+        
+            ////////////////////////////////////////////////////////
+    </script>
+
+}
+

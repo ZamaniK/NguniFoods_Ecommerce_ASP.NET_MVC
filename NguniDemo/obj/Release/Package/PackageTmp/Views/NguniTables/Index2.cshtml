@@ -1,0 +1,77 @@
+﻿@model IEnumerable<NguniDemo.Models.Table>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <h2>Tables</h2>
+
+    <table class="table table-hover table-striped table-responsive" id="my_list">
+        <thead>
+            <tr class="table-header-row">
+                <th>
+                    @Html.DisplayNameFor(model => model.TableTypes.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TableCapacity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TableDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TablePicture)
+                </th>
+
+                <th>Reserve Table</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TableTypes.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TableCapacity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TableDescription)
+                    </td>
+                    <td>
+                    </td>
+
+                    <td>
+                        <p><a href="@Url.Action("TableBooking","NguniTables", new { id=item.TableId })" rel="tooltip" title="View" class="btn btn-info btn-simple btn-xs"><i class="fa fa-address-book"></i>Reserve Table</a></p>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    $('#my_list').dataTable(
+        {
+            dom: 'Bfrtip',
+            lengthMenu: [
+                [10, 25, 50, -1],
+                ['10 rows', '25 rows', '50 rows', 'Show all']
+            ],
+            buttons: [
+                'pageLength', 'csv', 'pdf', 'print'
+            ],
+            language: { search: "" },
+            select: true
+        }
+    );
+    $(".dataTables_filter input").addClass("search-input");
+    $(".dataTables_filter input").attr('placeholder', 'Search');
+    $('#my_list')
+        .removeClass('display')
+        .addClass('table table-striped table-hover');
+</script>
+
+
+

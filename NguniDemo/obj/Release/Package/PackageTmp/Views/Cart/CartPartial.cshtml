@@ -1,0 +1,7 @@
+﻿@model NguniDemo.ViewModels.CartVM
+
+<div class="ajaxcart" style="color:black;">
+    <i class="fas fa-shopping-cart"></i>: @Model.Quantity item(s) - R @Model.Price
+    <br />
+    @Html.ActionLink("Checkout", "Index")
+</div>

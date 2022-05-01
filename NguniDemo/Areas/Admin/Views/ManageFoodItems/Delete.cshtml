@@ -1,0 +1,70 @@
+﻿@model NguniDemo.Models.FoodItem
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="main-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>@ViewBag.Title.</h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Are you sure you want to delete this?</h3>
+                <div>
+                    <h4>FoodItem</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Food.FoodType)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Food.FoodType)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.FoodItemName)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.FoodItemName)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.LongDesc)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.LongDesc)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Price)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Price)
+                        </dd>
+                        <dd>
+                            <img src="@Html.DisplayFor(model => model.ImageUrl)" class="img-rounded" width="304" height="236">
+                        </dd>
+                    </dl>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-actions no-color">
+                            <input type="submit" value="Delete" class="btn btn-danger" /> |
+                            @Html.ActionLink("Back to List", "Index")
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

@@ -1,0 +1,105 @@
+﻿@model IEnumerable<NguniDemo.Models.TableReservation>
+<div class="container">
+    @{
+        ViewBag.Title = "ChckIn";
+        var message = TempData["AlertMessage"] ?? string.Empty;
+    }
+    <script>
+    var msg = '@message';
+    if (msg)
+        alert(msg);
+    </script>
+
+    <h2 align="center">Check-In -- Check-Out</h2>
+    <table class="table table-hover table-striped table-responsive" id="my_list">
+        <thead>
+            <tr class="table-header-row">
+
+                <th class="th-sm">
+                    @Html.DisplayNameFor(model => model.TableType)
+                </th>
+                <th class="th-sm">
+                    @Html.DisplayNameFor(model => model.CustomerEmail)
+                </th>
+
+                <th class="th-sm">
+                    @Html.DisplayNameFor(model => model.CheckInTime)
+                </th>
+                <th class="th-sm">
+                    @Html.DisplayNameFor(model => model.CheckOutTime)
+                </th>
+
+                <th class="th-sm">
+                    @Html.DisplayNameFor(model => model.NumberOfPeople)
+                </th>
+                <th class="th-sm">
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TableType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustomerEmail)
+                    </td>
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CheckInTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CheckOutTime)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumberOfPeople)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @if (item.Status == "Not yet Checked In!!")
+                        {
+                            <a href="@Url.Action("CheckInn", "TableReservation",new { id = item.TableBookingId })" onclick="return confirm('Are you sure you want to check in this person, click Ok to Confirm, Or Cancel');" rel="tooltip" title="Check In" class="btn btn-success btn-simple btn-xs"><i class="fa fa-check-square-o"></i></a>
+                        }
+                        else if (item.Status == "Checked In")
+                        {
+                            <a href="@Url.Action("CheckOut", "TableReservation",new { id = item.TableBookingId })" onclick="return confirm('Are you sure you want to check out this person, click Ok to Confirm, Or Cancel');" rel="tooltip" title="Check Out" class="btn btn-danger btn-simple btn-xs"><i class="glyphicon glyphicon-remove"></i></a>
+                        }
+                        else if (item.Status == "Checked In")
+                        {
+
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    $('#my_list').dataTable(
+        {
+            dom: 'Bfrtip',
+            lengthMenu: [
+                [10, 25, 50, -1],
+                ['10 rows', '25 rows', '50 rows', 'Show all']
+            ],
+            buttons: [
+                'pageLength', 'csv', 'pdf', 'print'
+            ],
+            language: { search: "" },
+            select: true
+        }
+    );
+    $(".dataTables_filter input").addClass("search-input");
+    $(".dataTables_filter input").attr('placeholder', 'Search');
+    $('#my_list')
+        .removeClass('display')
+        .addClass('table table-striped table-hover');</script>
